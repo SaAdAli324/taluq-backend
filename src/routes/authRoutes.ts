@@ -25,7 +25,7 @@ route.get('/google/callback', passport.authenticate('google',{ session:false , f
     })
     const rawFrontendUrl = process.env.FRONTEND_URL || "https://taluq-front-end-vmq5-git-main-saadali324s-projects.vercel.app";
     const primaryFrontendUrl = (rawFrontendUrl.split(",")[0] || "").trim().replace(/\/$/, "");
-    res.redirect(primaryFrontendUrl);
+    res.redirect(`${primaryFrontendUrl}?token=${token}`);
 }
 )
 route.post("/logout", tokenCookie.clearCookie)

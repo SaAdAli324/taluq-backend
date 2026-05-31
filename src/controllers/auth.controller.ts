@@ -25,7 +25,8 @@ export const authController = {
     res.status(200).json({
       message: "User logged in successfully",
       success: true,
-      user
+      user,
+      token
     })
   }),
 
