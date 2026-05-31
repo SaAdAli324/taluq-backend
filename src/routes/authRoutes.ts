@@ -23,7 +23,7 @@ route.get('/google/callback', passport.authenticate('google',{ session:false , f
          maxAge:1000*60*60*24*7,
          sameSite:process.env.NODE_ENV === "production" ? "none" : "lax"
     })
-    res.redirect(process.env.FRONTEND_URL || "http://localhost:5173")
+    res.redirect(process.env.FRONTEND_URL || "https://taluq-front-end-vmq5-git-main-saadali324s-projects.vercel.app")
 }
 )
 route.post("/logout", tokenCookie.clearCookie)
