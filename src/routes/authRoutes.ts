@@ -21,9 +21,9 @@ route.get('/google/callback', passport.authenticate('google',{ session:false , f
         httpOnly:true ,
          secure:process.env.NODE_ENV === "production",
          maxAge:1000*60*60*24*7,
-         sameSite:'lax'
+         sameSite:process.env.NODE_ENV === "production" ? "none" : "lax"
     })
-    res.redirect("http://localhost:5173")
+    res.redirect(process.env.FRONTEND_URL || "http://localhost:5173")
 }
 )
 route.post("/logout", tokenCookie.clearCookie)
