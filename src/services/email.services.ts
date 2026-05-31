@@ -27,7 +27,9 @@ export const emailServices = {
   },
 
   async sendVerificationEmail(to: string, token: string): Promise<void> {
-    const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
+    const rawFrontendUrl = process.env.FRONTEND_URL || "https://taluq-front-end-vmq5-git-main-saadali324s-projects.vercel.app";
+    const primaryFrontendUrl = (rawFrontendUrl.split(",")[0] || "").trim().replace(/\/$/, "");
+    const verificationUrl = `${primaryFrontendUrl}/verify-email?token=${token}`;
     const htmlContent = `
       <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
         <h2 style="color: #10b981; text-align: center;">Welcome to Taluq!</h2>
@@ -46,7 +48,9 @@ export const emailServices = {
   },
 
   async sendPasswordResetEmail(to: string, token: string): Promise<void> {
-    const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+    const rawFrontendUrl = process.env.FRONTEND_URL || "https://taluq-front-end-vmq5-git-main-saadali324s-projects.vercel.app";
+    const primaryFrontendUrl = (rawFrontendUrl.split(",")[0] || "").trim().replace(/\/$/, "");
+    const resetUrl = `${primaryFrontendUrl}/reset-password?token=${token}`;
     const htmlContent = `
       <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
         <h2 style="color: #10b981; text-align: center;">Reset your Password</h2>
