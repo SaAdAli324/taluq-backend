@@ -28,23 +28,25 @@ app.use(express.json({ limit: "10kb" }))
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(helmet())
+const allowedOrigins = ["http://localhost:5173"];
+if (process.env.FRONTEND_URL) {
+    const envOrigins = process.env.FRONTEND_URL.split(",")
+        .map(url => url.trim().replace(/\/$/, ""));
+    allowedOrigins.push(...envOrigins);
+}
+
 app.use(cors({
-    origin: [process.env.FRONTEND_URL || "http://localhost:5173", "http://localhost:5173"],
+    origin: allowedOrigins,
     credentials: true
 }));
 
-
-
-
-
-
 const io = new Server(server, {
     cors: {
-        origin: [process.env.FRONTEND_URL || "http://localhost:5173", "http://localhost:5173"],
+        origin: allowedOrigins,
         methods: ["GET", "POST"],
-        credentials:true
+        credentials: true
     }
-})
+});
 initializeSocket(io)
 if (process.env.NODE_ENV === "development") {
     app.use(morgan('dev'))
