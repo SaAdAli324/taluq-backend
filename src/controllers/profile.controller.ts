@@ -38,14 +38,14 @@ export const getProfileController = {
         const { name, biography } = req.body
         const profilePics  = req.file?.path as any
         if (!_id) return next(new AppError("user id is required in the profile controller", 400))
-        if (!name && !biography && !profilePics) return
+        if (!name && !biography && !profilePics) return next(new AppError("Please provide at least one field to update", 400))
         logger.info(`Updating profile for user ID: ${_id} with name: ${name}, biography: ${biography}, profilePic: ${profilePics}`)
         const updatedUser = await profileServices.updateProfileService(_id, name, biography, profilePics)
         if (!updatedUser) return next(new AppError("failed to update profile", 500))
         res.status(200).json({
             success: true,
-            filePath:profilePics
-           
+            user: updatedUser,
+            filePath: profilePics
         })
 
     })
